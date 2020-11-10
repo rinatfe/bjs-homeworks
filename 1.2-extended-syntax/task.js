@@ -18,31 +18,23 @@ function getResult(a,b,c) {
     }
 }
 
-function getAverageMark(marks){
-    // код для задачи №2 писать здесь
-    function countAvg (arr) {
-        let count = 0;
+function getAverageMark(marks) {
+  let count = 0;
+  
+  if (marks.length === 0)
+    return 0;
+
+  if (marks.length > 5) 
+    marks.splice(5);
+  
+  if (marks.length <= 5) {
+    for (let i in marks) 
+      count = count + marks[i]
     
-        for (let i in arr) {
-          count = count + arr[i]
-        }
-        
-        let result = count/arr.length
-        return result
-      } 
-    
-      if (marks.length === 0)
-        return 0;
-      if (marks.length <= 5) {
-        return countAvg(marks)
-      }
-      if (marks.length > 5) {
-        let spliceArr = (marks.length - 6) + marks.length - 1;
-        marks.splice(5, spliceArr);
-        return countAvg(marks)
-      }  
-    // return averageMark;
+    return  count/marks.length
+  }    
 }
+   
 
 function askDrink(name,dateOfBirthday){
     // код для задачи №3 писать здесь
