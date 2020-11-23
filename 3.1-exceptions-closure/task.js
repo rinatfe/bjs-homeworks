@@ -1,18 +1,21 @@
-function parseCount(deparce) {
-    let item = Number.parseInt(deparce)
-    if (isNaN(item)) {
-      const parceError = new Error("Невалидное значение")
-      throw parceError
+
+
+  function parseCount(deparce) {
+    if (isNaN(Number.parseInt(deparce))) {
+       
+      throw new Error('Невалидное значение')
     }
-    return item
+    return Number.parseInt(deparce)
   }
   
   function validateCount(deparce) {
     try {
-      let result = parseCount(deparce)
-        return result
-    } catch {
-      return new Error("Невалидное значение")
+  
+      return parseCount(deparce)
+  
+    } catch(error) {
+  
+       return error
     }  
   }
   
@@ -35,8 +38,7 @@ function parseCount(deparce) {
   
     getArea() {
       let p = 0.5 * (this.a + this.b +this.c)
-      let s = Math.sqrt(p *(p - this.a) * (p - this.b) * (p - this.c))
-      return (Number(s.toFixed(3)))
+      return (Number(Math.sqrt(p *(p - this.a) * (p - this.b) * (p - this.c)).toFixed(3)))
     }
   }
   
@@ -45,17 +47,12 @@ function parseCount(deparce) {
   function getTriangle(a,b,c) {
     
     try {
-      const triangle = new Triangle(a,b,c)
-      return triangle
+      return new Triangle(a,b,c)
     }
     catch {
         return {
-          getArea: function getArea() {
-            return 'Ошибка! Треугольник не существует'
-          },
-          getPerimeter: function getPerimeter() { 
-            return 'Ошибка! Треугольник не существует'
-          }
-        }
+          getPerimeter: () => 'Ошибка! Треугольник не существует',
+          getArea: () =>  'Ошибка! Треугольник не существует'
+        }  
     }
   }
