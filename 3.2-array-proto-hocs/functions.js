@@ -13,19 +13,17 @@ function hasReliableWeapons(durability) {
 }
 
 function getReliableWeaponsNames(durability) {
-    let one = weapons.filter(item => item.durability > durability)
-    return one.map(item => item.name)
+    return weapons
+    .filter(item => item.durability > durability)
+    .map(item => item.name)
 }
 
 function getTotalDamage() {
-    let total = 0;
-    let result = weapons.map(item => total += item.attack)
-    return result[result.length - 1]  
+    return weapons.map(item => item.attack).reduce((a,b)=> a + b)  
 }
 
-function getValuestCountToSumValues(arr, total) {
-    let one = arr.map(item => total = total - item) 
-    return one.filter(item => item >= -1).length
+function getValuestCountToSumValues(arr, total) {  
+    return arr.filter(item => (total = total - item) >= -1).length 
 }
 
 
@@ -44,22 +42,20 @@ function sum(...args) {
   
   
 function compareArrays( arr1, arr2 ) {
-    return arr1.every((value,index) => value === arr2[index])
+    return arr1.every((value,index) => value === arr2[index] && arr1.length === arr2.length)
 }
 
 function memorize(fn, limit) {
     const memory = [];
     return function comeback(...args){
-        let end = fn(...args)
         let found = memory.find(item => compareArrays(args, item.args))
-        if( found !== undefined) {
+        if (found) {
             return found.result
-          
-        } else {
-            memory.push({args:args, result:end })
-            if(memory.length > limit)
-                memory.shift()    
-            return end
         } 
+        let end = fn(...args)
+        memory.push({args:args, result:end })
+        if (memory.length > limit)
+          memory.shift()    
+        return end   
     }
 }
