@@ -36,13 +36,13 @@ class AlarmClock {
     }
   
     start() {
-      let secTime = this.getCurrentFormattedTime()
+      let secTime = this.getCurrentFormattedTime
       function checkClock(call) {
-        if(secTime === call.time)
+        if(secTime() === call.time)
           call.callback()   
       }
       if (this.timerId === null) {
-        this.timerId = setInterval(()=> this.alarmCollection.every(item => checkClock(item)), 1000)
+        this.timerId = setInterval(()=> this.alarmCollection.forEach(item => checkClock(item)), 1000)
       }
     }
   
@@ -63,5 +63,20 @@ class AlarmClock {
       
     }
   }
+
+let obj = new AlarmClock();
+
+obj.addClock('13:25', ()=> console.log('hello world'), 1)
+
+obj.addClock('13:26', ()=> { console.log('hello world2'); obj.removeClock(2)}, 2)
+
+obj.addClock('13:27', ()=> {
+  console.log('hello world3'); 
+  obj.stop();
+  obj.clearAlarms();
+}, 3)
+
+obj.printAlarms();
+obj.start();
 
   
